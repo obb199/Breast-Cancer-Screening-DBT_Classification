@@ -130,4 +130,4 @@ def create_2D_dataset(X, y):
 
 if __name__ == '__main__':
     X, y = read_dataset('DIR OF IMAGES',
-                        'DIR OF CSV WITH LABELS', '-1 or other number until 39')
+                        'DIR OF CSV WITH LABELS', '-1 or other positive number until 39')
