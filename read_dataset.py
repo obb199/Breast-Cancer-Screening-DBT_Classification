@@ -97,6 +97,38 @@ def separate_data_into_groups(data, elements_per_group=20, shuffle_dirs=True, se
 
     return groups
 
+def create_2D_dataset(X, y):
+  X, y = shuffle(X, y, random_state=437843)
+
+  length = len(X)
+  slices = X.shape[-2]
+
+  X_train3D, y_train3D = X[0:int(length*0.6)], y[0:int(length*0.6)]
+  X_val3D, y_val3D = X[int(length*0.6):int(length*0.8)], y[int(length*0.6):int(length*0.8)]
+  X_test3D, y_test3D = X[int(length*0.8):], y[int(length*0.8):]
+
+  X_train2D, X_val2D, X_test2D = [], [], []
+  y_train2D, y_val2D, y_test2D = [], [], []
+
+
+  for x, y in zip(X_train3D, y_train3D):
+    X_train2D += separate_slices(x)
+    y_train2D += multiply_labels(y, slices)
+
+  for x, y in zip(X_val3D, y_val3D):
+    X_val2D += separate_slices(x)
+    y_val2D += multiply_labels(y, slices)
+
+  for x, y in zip(X_test3D, y_test3D):
+    X_test2D += separate_slices(x)
+    y_test2D += multiply_labels(y_test3D, slices)
+
+  return np.array(X_train2D), np.array(X_val2D), \
+         np.array(X_test2D), np.array(y_train2D), \
+         np.array(y_val2D), np.array(y_test2D)
+  
+
+
 
 if __name__ == '__main__':
     X, y = read_dataset('DIR OF IMAGES',
