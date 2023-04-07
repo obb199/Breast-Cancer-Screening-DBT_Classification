@@ -126,9 +126,7 @@ def create_2D_dataset(X, y):
   return np.array(X_train2D), np.array(X_val2D), \
          np.array(X_test2D), np.array(y_train2D), \
          np.array(y_val2D), np.array(y_test2D)
-  
-
-
+ 
 
 if __name__ == '__main__':
     X, y = read_dataset('DIR OF IMAGES',
