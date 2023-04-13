@@ -1,3 +1,6 @@
+from read_dataset import get_labels, separate_data_into_groups, separate_slices
+from data_augmentation import data_augmentation
+
 def fit_model(train_dirs, labels_dir, model=None, epochs=1, size_groups=8, size_part_mini_batch=32, val_dirs=None, data_augmentation_process=False):
     best_accuracy = 0
     
@@ -58,7 +61,7 @@ def soft_voting(image, model):
     
     return np.array(predicts).mean(axis=1)
 
-def hard_voting(image, model, dir_labels=None):
+def hard_voting(image, model):
     predicts = []
     
     full_image = np.load(element)
